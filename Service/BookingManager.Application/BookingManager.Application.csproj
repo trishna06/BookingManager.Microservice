@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Commands\DataTransferObjects\" />
+    <Folder Include="Commands\Validations\" />
+    <Folder Include="Events\DomainEventHandlers\" />
+    <Folder Include="Events\IntegrationEventHandlers\" />
+    <Folder Include="Events\IntegrationEvents\" />
+    <Folder Include="Models\" />
+    <Folder Include="Queries\Models\" />
+    <Folder Include="Queries\Specifications\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.3.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="EventBusUtility" Version="3.0.2" />
+    <PackageReference Include="EventBusUtility.IntegrationEventLog" Version="3.0.2" />
+    <PackageReference Include="EventBusUtility.MassTransit" Version="3.0.2" />
+    <PackageReference Include="FluentValidation" Version="11.0.1" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.0.1" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.0.1" />
+    <PackageReference Include="MediatR" Version="10.0.1" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
+    <PackageReference Include="Microservice.Utility.Application" Version="3.0.4" />
+    <PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BookingManager.Domain\BookingManager.Domain.csproj" />
+    <ProjectReference Include="..\BookingManager.Infrastructure\BookingManager.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

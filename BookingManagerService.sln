@@ -1,0 +1,73 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32210.238
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReleaseNotes", "ReleaseNotes", "{F05288CE-401E-4812-BE75-A2BB5DF60BC9}"
+	ProjectSection(SolutionItems) = preProject
+		ReleaseNotes\0.1.0.md = ReleaseNotes\0.1.0.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0A277152-A540-46C3-AB3A-0E10968ECA73}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		Dockerfile = Dockerfile
+		NuGet.Config = NuGet.Config
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{0DD3824E-DB0A-412F-9A1A-4F0AC36F21A6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookingManager.API", "Service\BookingManager.API\BookingManager.API.csproj", "{A711D29F-2AA0-451B-8179-B6E3B2F1DB86}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookingManager.Application", "Service\BookingManager.Application\BookingManager.Application.csproj", "{6428688F-CFC7-4233-A51F-9C2460967D9F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookingManager.Domain", "Service\BookingManager.Domain\BookingManager.Domain.csproj", "{3C57A79D-1C2B-4946-917C-A8DCDC04EC72}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookingManager.Infrastructure", "Service\BookingManager.Infrastructure\BookingManager.Infrastructure.csproj", "{2E42813B-AB3A-4A00-8910-7CDEACC3953F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Builds", "Builds", "{C9D107FC-12CA-4C5F-BA15-AF2A7BFA33AA}"
+	ProjectSection(SolutionItems) = preProject
+		Builds\Development-Build-Validation.yml = Builds\Development-Build-Validation.yml
+		Builds\Master-Build-Validation.yml = Builds\Master-Build-Validation.yml
+		Builds\Release-Build-Validation.yml = Builds\Release-Build-Validation.yml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A711D29F-2AA0-451B-8179-B6E3B2F1DB86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A711D29F-2AA0-451B-8179-B6E3B2F1DB86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A711D29F-2AA0-451B-8179-B6E3B2F1DB86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A711D29F-2AA0-451B-8179-B6E3B2F1DB86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6428688F-CFC7-4233-A51F-9C2460967D9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6428688F-CFC7-4233-A51F-9C2460967D9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6428688F-CFC7-4233-A51F-9C2460967D9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6428688F-CFC7-4233-A51F-9C2460967D9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C57A79D-1C2B-4946-917C-A8DCDC04EC72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C57A79D-1C2B-4946-917C-A8DCDC04EC72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C57A79D-1C2B-4946-917C-A8DCDC04EC72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C57A79D-1C2B-4946-917C-A8DCDC04EC72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E42813B-AB3A-4A00-8910-7CDEACC3953F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E42813B-AB3A-4A00-8910-7CDEACC3953F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E42813B-AB3A-4A00-8910-7CDEACC3953F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E42813B-AB3A-4A00-8910-7CDEACC3953F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A711D29F-2AA0-451B-8179-B6E3B2F1DB86} = {0DD3824E-DB0A-412F-9A1A-4F0AC36F21A6}
+		{6428688F-CFC7-4233-A51F-9C2460967D9F} = {0DD3824E-DB0A-412F-9A1A-4F0AC36F21A6}
+		{3C57A79D-1C2B-4946-917C-A8DCDC04EC72} = {0DD3824E-DB0A-412F-9A1A-4F0AC36F21A6}
+		{2E42813B-AB3A-4A00-8910-7CDEACC3953F} = {0DD3824E-DB0A-412F-9A1A-4F0AC36F21A6}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6EE6075C-01C8-4326-8AF2-3C4753790D96}
+	EndGlobalSection
+EndGlobal
