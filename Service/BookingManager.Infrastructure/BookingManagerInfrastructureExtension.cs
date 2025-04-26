@@ -1,4 +1,5 @@
 ﻿using System;
+using BookingManager.Domain.Repositories;
 using BookingManager.Infrastructure.Queries;
 using BookingManager.Infrastructure.Repositories;
 using Microservice.Utility.Domain.SeedWork;
@@ -36,6 +37,7 @@ namespace BookingManager.Infrastructure
         public static IServiceCollection AddBookingManagerRepositories(this IServiceCollection services)
         {
             services.AddScoped<IContextQuery, BookingManagerContextQuery>();
+            services.AddScoped<IBookingRepository, BookingRepository>();
             return services;
         }
 

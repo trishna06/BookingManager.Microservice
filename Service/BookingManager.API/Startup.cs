@@ -9,8 +9,6 @@ using BookingManager.API.Services;
 using BookingManager.Application;
 using BookingManager.Application.Helpers;
 using BookingManager.Infrastructure;
-using IdentityManager.API.Helper;
-using Microservice.Utility.API.Helper;
 using Microservice.Utility.Domain.SeedWork;
 using Microservice.Utility.Exception;
 using Microsoft.AspNetCore.Builder;
@@ -22,7 +20,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Converters;
-using PermissionManager.API.Helper;
 using Serilog;
 
 namespace BookingManager.API
@@ -83,9 +80,6 @@ namespace BookingManager.API
                     .AddScoped<IUserService, UserService>();
 
             EndpointOptions endpointOptions = Configuration.GetSection(nameof(EndpointOptions)).Get<EndpointOptions>();
-
-            services.AddIdentityManagerService<IdentityTokenManager>(endpointOptions.GetEndpointUrl("IdentityManager"), IdentityManagerExtension.ApplicationType.API);
-            services.AddPermissionManagerService<PermissionTokenManager>(endpointOptions.GetEndpointUrl("PermissionManager"), PermissionManagerExtension.ApplicationType.API);
 
             services.AddBookingManagerApplication();
             services.AddBookingManagerInfrastructure(DatabaseConnectionString);

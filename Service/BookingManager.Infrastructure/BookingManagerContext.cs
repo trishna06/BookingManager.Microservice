@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using BookingManager.Infrastructure.EntityConfigurations;
+using MediatR;
 using Microservice.Utility.Domain.SeedWork;
 using Microservice.Utility.Infrastructure;
 using Microservice.Utility.Infrastructure.Services;
@@ -9,7 +10,8 @@ namespace BookingManager.Infrastructure
     public class BookingManagerContext : MicroserviceContextBase
     {
         // TODO: Please replace this with the initials prefix for the microservice. Eg. JM for Job Manager.
-        public const string TablePrefix = "TEMPLATE";
+        public const string TablePrefix = "BM";
+        public DbSet<Domain.Aggregates.BookingAggregate.Booking> Booking { get; set; }
 
         public BookingManagerContext(DbContextOptions options, IMediator mediator,
             ICustomFieldManager cfManager, IUserService userService) : base(TablePrefix, options, mediator, cfManager, userService)
@@ -18,7 +20,7 @@ namespace BookingManager.Infrastructure
 
         protected override void ApplyEntityConfigurations(ModelBuilder modelBuilder)
         {
-            // All EntityConfigurations
+            modelBuilder.ApplyConfiguration(new BookingEntityTypeConfiguration());
         }
     }
 }

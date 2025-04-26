@@ -2,6 +2,8 @@
 using AutoMapper.Internal;
 using Microservice.Utility.Application.Interfaces;
 using Microservice.Utility.Domain.SeedWork;
+using BookingManager.Application.Queries.Models;
+using BookingManager.Domain.Aggregates.BookingAggregate;
 
 namespace BookingManager.Application.Helpers
 {
@@ -11,7 +13,8 @@ namespace BookingManager.Application.Helpers
         {
             this.Internal().ForAllMaps((map, expr) => expr.AfterMap<MapCustomFieldAction>());
 
-            // AutoMapper Mappings
+            CreateMap<Booking, BookingModel>()
+                .ReverseMap();
         }
     }
 

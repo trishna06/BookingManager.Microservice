@@ -1,7 +1,10 @@
 ﻿using System.Reflection;
 using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using BookingManager.Application.Behaviours;
-using EventBusUtility.Events;
+using BookingManager.Application.Helpers;
+using BookingManager.Application.Queries;
+using EventBus.Utility.Events;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,22 +16,27 @@ namespace BookingManager.Application
         public static IServiceCollection AddBookingManagerApplication(this IServiceCollection services)
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
-            services.AddBookingManagerQueries();
+            services.AddBookingQueries();
             return services;
         }
 
-        public static IServiceCollection AddBookingManagerQueries(this IServiceCollection services)
+        public static IServiceCollection AddBookingQueries(this IServiceCollection services)
         {
+            services.AddTransient<KafkaProducerHelper>();
+            services.AddTransient<IBookingQueries, BookingQueries>();
             return services;
         }
     }
-
     public class MediatorModule : Autofac.Module
     {
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterAssemblyTypes(typeof(IMediator).GetTypeInfo().Assembly)
-                   .AsImplementedInterfaces();
+                   .AsImplementedInterfaces().InstancePerLifetimeScope();
+
+            // Register all the Command classes (they implement IRequestHandler) in assembly holding the Commands
+            builder.RegisterAssemblyTypes(typeof(BookingManagerApplicationExtension).GetTypeInfo().Assembly)
+                   .AsClosedTypesOf(typeof(IRequestHandler<>));
 
             // Register all the Command classes (they implement IRequestHandler) in assembly holding the Commands
             builder.RegisterAssemblyTypes(typeof(BookingManagerApplicationExtension).GetTypeInfo().Assembly)
@@ -38,20 +46,16 @@ namespace BookingManager.Application
             builder.RegisterAssemblyTypes(typeof(BookingManagerApplicationExtension).GetTypeInfo().Assembly)
                    .AsClosedTypesOf(typeof(INotificationHandler<>));
 
-            // Register the Command's Validators (Validators based on FluentValidation library)            
+            // Register the Command's Validators (Validators based on FluentValidation library)
             builder.RegisterAssemblyTypes(typeof(BookingManagerApplicationExtension).GetTypeInfo().Assembly)
                    .Where(t => t.IsClosedTypeOf(typeof(IValidator<>)))
                    .AsImplementedInterfaces();
 
-            builder.Register<ServiceFactory>(context =>
-            {
-                IComponentContext componentContext = context.Resolve<IComponentContext>();
-                return t => { object o; return componentContext.TryResolve(t, out o) ? o : null; };
-            });
+            builder.Populate(new ServiceCollection());
 
-            builder.RegisterGeneric(typeof(LoggingBehaviour<,>)).As(typeof(IPipelineBehavior<,>));
-            builder.RegisterGeneric(typeof(ValidatorBehaviour<,>)).As(typeof(IPipelineBehavior<,>));
-            builder.RegisterGeneric(typeof(TransactionBehaviour<,>)).As(typeof(IPipelineBehavior<,>));
+            builder.RegisterGeneric(typeof(LoggingBehaviour<,>)).As(typeof(IPipelineBehavior<,>)).InstancePerLifetimeScope();
+            builder.RegisterGeneric(typeof(ValidatorBehaviour<,>)).As(typeof(IPipelineBehavior<,>)).InstancePerLifetimeScope();
+            builder.RegisterGeneric(typeof(TransactionBehaviour<,>)).As(typeof(IPipelineBehavior<,>)).InstancePerLifetimeScope();
         }
     }
 

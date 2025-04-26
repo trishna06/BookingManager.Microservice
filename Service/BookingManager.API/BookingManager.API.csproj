@@ -13,8 +13,6 @@
   <ItemGroup>
     <PackageReference Include="Configuration.Contract" Version="1.0.3" />
     <PackageReference Include="DevExtreme.AspNet.Data" Version="4.0.1" />
-    <PackageReference Include="IdentityManager.API.Helper" Version="4.0.5" />
-    <PackageReference Include="IdentityManager.API.Helper.DependencyInjection" Version="4.0.5" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="6.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.8" />
@@ -34,10 +32,6 @@
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.7.3" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.7.3" />
     <PackageReference Include="Winton.Extensions.Configuration.Consul" Version="3.4.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
   </ItemGroup>
   
 </Project>

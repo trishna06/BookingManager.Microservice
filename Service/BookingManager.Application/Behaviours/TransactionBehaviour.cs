@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using BookingManager.Infrastructure;
-using EventBusUtility.Helper;
+using EventBus.Utility.Helper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using BookingManager.Infrastructure;
 using Serilog.Context;
 
 namespace BookingManager.Application.Behaviours
 {
     public class TransactionBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-        where TRequest : IRequest<TResponse>
+        where TRequest : notnull
     {
         private readonly ILogger<TransactionBehaviour<TRequest, TResponse>> _logger;
         private readonly BookingManagerContext _dbContext;
@@ -23,7 +23,7 @@ namespace BookingManager.Application.Behaviours
             _logger = logger ?? throw new ArgumentException(nameof(ILogger));
         }
 
-        public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
+        public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
             TResponse response = default(TResponse);
             string typeName = request.GetGenericTypeName();

@@ -2,16 +2,16 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using BookingManager.Domain.Exceptions;
-using EventBusUtility.Helper;
+using EventBus.Utility.Helper;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using BookingManager.Domain.Exceptions;
 
 namespace BookingManager.Application.Behaviours
 {
     public class ValidatorBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-        where TRequest : IRequest<TResponse>
+        where TRequest : notnull
     {
         private readonly ILogger<ValidatorBehaviour<TRequest, TResponse>> _logger;
         private readonly IValidator<TRequest>[] _validators;
@@ -22,7 +22,7 @@ namespace BookingManager.Application.Behaviours
             _logger = logger;
         }
 
-        public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
+        public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
             var typeName = request.GetGenericTypeName();
 
@@ -36,10 +36,14 @@ namespace BookingManager.Application.Behaviours
 
             if (failures.Any())
             {
-                _logger.LogWarning("Validation errors - {CommandType} - Command: {@Command} - Errors: {@ValidationErrors}", typeName, request, failures);
+                List<string> errorMessages = failures.Select(f => $"{f.PropertyName}: {f.ErrorMessage}").ToList();
+
+                _logger.LogWarning("Validation errors - {CommandType} - Command: {@Command} - Errors: {Errors}",
+                    typeName, request, string.Join("; ", errorMessages));
 
                 throw new BookingManagerDomainException(
-                    $"Command Validation Errors for type {typeof(TRequest).Name}", new ValidationException("Validation exception", failures));
+                    $"Command Validation Errors for type {typeof(TRequest).Name}: {string.Join("; ", errorMessages)}",
+                    new ValidationException("Validation exception", failures));
             }
 
             return await next();
