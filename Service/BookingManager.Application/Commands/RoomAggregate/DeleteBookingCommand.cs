@@ -6,6 +6,7 @@ using BookingManager.Domain.Exceptions;
 using BookingManager.Domain.Repositories;
 using BookingManager.Application.Commands.DataTransferObjects;
 using BookingManager.Application.Helpers;
+using System;
 
 namespace BookingManager.Application.Commands.BookingAggregate
 {
@@ -37,7 +38,8 @@ namespace BookingManager.Application.Commands.BookingAggregate
             {
                 Status = "Available",
                 RoomId = booking.RoomId,
-                Type = "Guest"
+                Type = "Guest",
+                UpdatedDateTime = DateTime.UtcNow.ToLongDateString(),
             });
         }
     }

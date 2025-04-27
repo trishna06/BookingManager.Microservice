@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using BookingManager.Application.Commands.DataTransferObjects;
 using BookingManager.Application.Helpers;
@@ -35,7 +36,18 @@ namespace BookingManager.Application.Commands.BookingAggregate
                 {
                     Status = "Available",
                     RoomId = booking.RoomId,
-                    Type = "Guest"
+                    Type = "Guest",
+                    UpdatedDateTime = DateTime.UtcNow.ToLongDateString(),
+                });
+            }
+            if (command.Status.ToLower() == "checkin")
+            {
+                await _kafkaProducer.ProduceAsync(new RoomAvailabilityDto()
+                {
+                    Status = "Booked",
+                    RoomId = booking.RoomId,
+                    Type = "Guest",
+                    UpdatedDateTime = DateTime.UtcNow.ToLongDateString(),
                 });
             }
         }

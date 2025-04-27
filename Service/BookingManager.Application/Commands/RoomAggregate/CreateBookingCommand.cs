@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using BookingManager.Application.Commands.DataTransferObjects;
 using BookingManager.Application.Helpers;
@@ -31,7 +32,8 @@ namespace BookingManager.Application.Commands.BookingAggregate
             {
                 Status = "Booked",
                 RoomId = command.Booking.RoomId,
-                Type = "Guest"
+                Type = "Guest",
+                UpdatedDateTime = DateTime.UtcNow.ToLongDateString(),
             });
             return Booking.Id;
         }
